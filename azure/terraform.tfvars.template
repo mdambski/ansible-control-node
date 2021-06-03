@@ -1,0 +1,33 @@
+# general project name and resource tag
+project     = "ansible-control-node"
+
+# prefix attached to all resource names
+prefix      = "ansiblecn"
+
+# env tier attached to resource names and as a tag
+environment = "dev"
+
+# azure deployment region
+region      = "westeurope"
+
+# azure network details
+address_space        = "10.200.0.0/16"
+address_space_subnet = "10.200.1.0/24"
+
+# allowed connection sources - change to specific connection source
+source_network       = "*"              
+
+# azure size vm code
+vm_size             = "Standard_B1ms"
+
+# azure dns name that will get attached to provisioned ip
+vm_dns_hostname     = "ansiblecn"
+
+# data disk size in GB mounted to vm
+vm_data_disk_size   = "128"             
+
+# administrator account username
+admin_username      = "username"
+
+# add default ssh key file path
+ssh_public_key      = "~/.ssh/id_rsa.pub"

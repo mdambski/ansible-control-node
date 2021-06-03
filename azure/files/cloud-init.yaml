@@ -1,0 +1,41 @@
+#cloud-config
+
+package_update: true
+
+disk_setup:
+  /dev/disk/azure/scsi1/lun0:
+    table_type: gpt
+    layout: true
+    overwrite: false
+
+fs_setup:
+  - device: /dev/disk/azure/scsi1/lun0
+    partition: 1
+    filesystem: ext4
+
+mounts:
+  - [
+      "/dev/disk/azure/scsi1/lun0-part1",
+      "/opt/data",
+      auto,
+      "defaults,noexec,nofail",
+    ]
+
+write_files:
+  - content: |
+      [all:vars]
+      ansible_python_interpreter=/usr/bin/python3
+    path: /etc/ansible/hosts
+    append: true
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+
+runcmd:
+  - sudo apt update && sudo apt-add-repository -y --update ppa:ansible/ansible
+  - sudo apt update
+  - sudo apt-get install ansible -y
